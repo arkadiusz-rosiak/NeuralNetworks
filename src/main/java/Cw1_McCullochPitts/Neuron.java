@@ -1,16 +1,19 @@
 package Cw1_McCullochPitts;
 
-// Neuron McCullochaPittsa
-class Neuron {
+import java.util.Arrays;
 
-    private double[] weights;
+// Neuron McCullochaPittsa
+@SuppressWarnings("WeakerAccess")
+public class Neuron {
+
+    protected double[] weights;
     private double[] inputs;
 
-    Neuron(double[] weights) {
+    public Neuron(double[] weights) {
         this.weights = weights;
     }
 
-    double getResults(double[] input){
+    public double getResults(double[] input){
 
         if(input.length != weights.length){
             throw new IllegalArgumentException("Input size must be weights size (" + weights.length + ")");
@@ -34,5 +37,9 @@ class Neuron {
 
     private double isNeuronActivated(double x){
         return (x >= 0) ? 1 : 0;
+    }
+
+    public double[] getWeights() {
+        return Arrays.copyOf(weights, weights.length);
     }
 }
