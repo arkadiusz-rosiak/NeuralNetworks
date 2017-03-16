@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class Vector {
 
+
     public static double[] ones(int length) {
         double[] array = new double[length];
         Arrays.fill(array, 1.0);
