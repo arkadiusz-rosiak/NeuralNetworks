@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class NetworkWithSGD
 {
 
-    private static final double C = 0.45;
+    private static final double C = 0.5;
     private static final double EPS = 0.000001;
     private static final double BETA = 3.00;
 
@@ -37,7 +37,7 @@ public class NetworkWithSGD
     public void train()
     {
         double sNorm;
-        double wNorm;
+        double wMax;
 
         int epoch = 0;
 
@@ -50,20 +50,21 @@ public class NetworkWithSGD
             double[][] wNew = calculateNewW();
 
             sNorm = Vector.normalize(Vector.vectorsDifference(s, sNew));
-            wNorm = Vector.normalize(Vector.vectorsDifference(w, wNew));
+            wMax = Vector.normalize(Vector.vectorsDifference(w, wNew));
 
             s = sNew;
             w = wNew;
-        } while(Math.max(sNorm, wNorm) >= EPS);
+        } while(Math.max(sNorm, wMax) >= EPS);
 
 
         System.out.println("#Iterations: " + epoch);
-        System.out.println(Arrays.toString(s));
-        System.out.println(Arrays.toString(w[0]) + " " + Arrays.toString(w[1]));
+        System.out.println("s = " + Arrays.toString(s));
+        System.out.println("w[0] = " + Arrays.toString(w[0]));
+        System.out.println("w[1] = " + Arrays.toString(w[1]));
 
         for(int p = 0; p < 4; ++p)
         {
-            System.out.println("y[" + p + "] = " + y(p));
+            System.out.printf("y[%d] = %.5f%n", p,  y(p));
         }
 
     }

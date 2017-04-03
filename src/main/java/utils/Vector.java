@@ -56,7 +56,7 @@ public class Vector
 
         for(int i = 0; i < xNew.length; ++i)
         {
-            result[i] = xOld[i] - xNew[i];
+            result[i] =  Math.abs(xOld[i] - xNew[i]);
         }
 
         return result;
@@ -70,11 +70,41 @@ public class Vector
         {
             for(int j = 0; j < xNew[i].length; ++j)
             {
-                result[i][j] = xOld[i][j] - xNew[i][j];
+                result[i][j] = Math.abs(xOld[i][j] - xNew[i][j]);
             }
         }
 
         return result;
     }
 
+    public static double getMaxElem(double[] vector)
+    {
+        double max = vector[0];
+
+        for(double el : vector){
+            max = (el > max) ? el : max;
+        }
+
+        return max;
+    }
+
+    public static double getMaxElem(double[][] vector)
+    {
+        double max = vector[0][0];
+
+        for(double[] insideVector : vector){
+            for(double el : insideVector)
+            {
+                max = (el > max) ? el : max;
+            }
+        }
+
+        return max;
+    }
+
+    public static double[] bias(int length){
+        double[] vec = new double[length];
+        vec[length-1] = 1;
+        return vec;
+    }
 }

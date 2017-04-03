@@ -89,10 +89,6 @@ public class Network
         for(Neuron neuron : hiddenLayer){
             for(int i = 0; i < row.length; ++i){
                 neuron.setWeight(i, neuron.getWeight(i) + C*neuron.getDelta()*row[i]);
-
-                /**/
-                    s[i] = s[i] - i/10;
-                /**/
             }
         }
 

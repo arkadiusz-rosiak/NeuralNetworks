@@ -17,19 +17,9 @@ public class Gradient {
         xNew[0] = xOld[0] - C * Derivate.derivateFirstX(input);
         xNew[1] = xOld[1] - C * Derivate.derviateFirstY(input);
         xNew[2] = xOld[2] - C * Derivate.derviateFirstZ(input);
-
         return xNew;
     }
 
-    private double[] calculateXNewSecond(double[] xOld, double[] input){
-
-        double[] xNew = new double[xOld.length];
-
-        xNew[0] = xOld[0] - C * Derivate.derviateSecondX(input);
-        xNew[1] = xOld[1] - C * Derivate.derviateSecondY(input);
-
-        return xNew;
-    }
 
     public static void main(String[] args){
 
@@ -39,9 +29,6 @@ public class Gradient {
         double[] result = app.calculateFirst(input1);
         System.out.println("x new = " + Arrays.toString(result) + " f(x,y,z) = " + app.valueFirst(result));
 
-        double[] input2 = new double[] { 2.0, 2.0 };
-        double[] result2 = app.calculateSecond(input2);
-        System.out.println("x new = " + Arrays.toString(result2) + " f(x,y,z) = " + app.valueSecond(result2));
 
 
     }
@@ -53,19 +40,6 @@ public class Gradient {
         while(normalize(vectorsDifference(xNew, xOld)) >= EPS){
             xOld = xNew;
             xNew = calculateXNewFirst(xOld, xNew);
-        }
-
-        return xNew;
-    }
-
-    private double[] calculateSecond(double[] input)
-    {
-        double[] xOld = new double[]{ 0, 0};
-        double[] xNew = calculateXNewSecond(xOld, input);
-
-        while(normalize(vectorsDifference(xNew, xOld)) >= EPS){
-            xOld = xNew;
-            xNew = calculateXNewSecond(xOld, xNew);
         }
 
         return xNew;
@@ -98,11 +72,6 @@ public class Gradient {
     public double valueFirst(double[] input){
         return 2 * Math.pow(input[0],2) + 2* Math.pow(input[1],2) + Math.pow(input[2],2)
                 - 2*input[0]*input[1] - 2*input[1]*input[2] - 2*input[0] + 3;
-    }
-
-    public double valueSecond(double[] input){
-        return 3*Math.pow(input[0],4) + 4*Math.pow(input[0],3)
-                - 12*Math.pow(input[0],2) + 12*Math.pow(input[1],2) -24*input[1];
     }
 
 

@@ -2,7 +2,8 @@ package Cw3_Association;
 
 import java.util.Arrays;
 
-public class Class3 {
+public class Association
+{
 
     private static double[] sgn(double x[]){
 
