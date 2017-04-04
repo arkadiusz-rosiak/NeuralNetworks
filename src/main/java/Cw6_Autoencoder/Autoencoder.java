@@ -1,11 +1,9 @@
 package Cw6_Autoencoder;
 
-import utils.Vector;
-
 public class Autoencoder
 {
-    private static final double C = 0.5;
-    private static final double BETA = 1.00;
+    private static final double C = 0.45;
+    private static final double BETA = 1.3;
     private static final double EPS = 0.0001;
 
     private double[][] x = {
@@ -42,71 +40,51 @@ public class Autoencoder
 
     private double[] bp = new double[25];
 
-
-    public Autoencoder()
-    {
-        for(int i = 0; i < 25; i++)
-        {
-            wp[i] = Vector.ones(16);
-        }
-    }
-
     public static void main(String[] args)
     {
         Autoencoder app = new Autoencoder();
 
-        double bNorm;
-        double wNorm;
-        int epoch = 0;
-
-
         app.bp = app.calculateNewBP();
         app.wp = app.calculateNewWP();
 
-        do
-        {
-            ++epoch;
+        app.b = app.calculateNewB();
+        app.w = app.calculateNewW();
 
+        app.xp = app.calculateNewXP();
+        app.y = app.calculateNewY();
+
+        for(int eppoch = 0; eppoch < 50; eppoch++)
+        {
+            app.y = app.calculateNewY();
+            app.b = app.calculateNewB();
+            app.w = app.calculateNewW();
+        }
+
+        for(int eppoch = 0; eppoch < 50; eppoch++)
+        {
+            app.xp = app.calculateNewXP();
+            app.bp = app.calculateNewBP();
+            app.wp = app.calculateNewWP();
+        }
+
+        for(int eppoch = 0; eppoch < 50; eppoch++)
+        {
+            app.xp = app.calculateNewXP();
+            app.bp = app.calculateNewBP();
+            app.wp = app.calculateNewWP();
 
             app.y = app.calculateNewY();
-            app.xp = app.calculateNewXP();
-            double[] bNew = app.calculateNewB();
-            double[][] wNew = app.calculateNewW();
-
-            bNorm = Vector.normalize(Vector.vectorsDifference(app.b, bNew));
-            wNorm = Vector.normalize(Vector.vectorsDifference(app.w, wNew));
-
-            app.b = bNew;
-            app.w = wNew;
-
-            if(epoch % 100 == 0)
-            {
-                System.out.println("#" + epoch + " bNorm: " + bNorm + " wNorm: " + wNorm);
-            }
-
-        } while(Math.max(bNorm, wNorm) >= EPS);
-
-
-        for(int a = 0; a < 3; a++)
-        {
-            for(int i = 0; i < app.xp[a].length; i++)
-            {
-                System.out.printf("%.4f ", app.xp[a][i]);
-
-                if(i % 5 == 4)
-                {
-                    System.out.println();
-                }
-            }
-
-            System.out.println("\n");
+            app.b = app.calculateNewB();
+            app.w = app.calculateNewW();
         }
+
+
 
         double[][] xpp = app.calculateXPP();
 
         for(int a = 0; a < 3; a++)
         {
-
+            System.out.println("x["+a+"] -------------------\n");
             for(int i = 0; i < xpp[a].length; i++)
             {
                 if(xpp[a][i] == 1)
@@ -153,7 +131,7 @@ public class Autoencoder
 
     private double f_1(double u)
     {
-        return (u >= 1) ? 1 : 0;
+        return (u >= 0) ? 1 : 0;
     }
 
     private double[][] calculateNewXP()
