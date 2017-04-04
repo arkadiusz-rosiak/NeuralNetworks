@@ -4,7 +4,7 @@ import utils.Vector;
 
 import java.util.Scanner;
 
-public class Hopfield
+public class HopfieldB
 {
 
     private static final int N = 25;
@@ -17,17 +17,28 @@ public class Hopfield
             0, 0, 0, 0, 0
     };
 
+    private final double[] xr = {
+            0, 1, 1, 1, 0,
+            0, 1, 0, 1, 0,
+            0, 1, 0, 1, 0,
+            0, 1, 0, 1, 0,
+            0, 1, 1, 1, 0
+    };
+
     private double[] x = Vector.randomZeroOneVector(N);
 
     private double[][] c = new double[N][N];
+
+    private double[][] d = new double[N][N];
 
     private double[] theta = new double[N];
 
     private double[][] w = new double[N][N];
 
-    public Hopfield()
+    public HopfieldB()
     {
         initializeC();
+        initializeD();
         initializeTheta();
         initializeW();
     }
@@ -38,7 +49,7 @@ public class Hopfield
         {
             for(int j = 0; j < N; j++)
             {
-                w[i][j] = 2 * c[i][j];
+                w[i][j] = 2 * (c[i][j] + d[i][j]);
             }
         }
     }
@@ -50,7 +61,25 @@ public class Hopfield
             theta[i] = 0.0;
             for(int j = 0; j < N; j++)
             {
-                theta[i] += c[i][j];
+                theta[i] += (c[i][j] + d[i][j]);
+            }
+        }
+    }
+
+    private void initializeD()
+    {
+        for(int i = 0; i < N; i++)
+        {
+            for(int j = 0; j < N; j++)
+            {
+                if(i == j)
+                {
+                    d[i][j] = 0;
+                }
+                else
+                {
+                    d[i][j] = (xr[i] - 0.5) * (xr[j] - 0.5);
+                }
             }
         }
     }
@@ -125,7 +154,7 @@ public class Hopfield
     public static void main(String[] args)
     {
 
-        Hopfield app = new Hopfield();
+        HopfieldB app = new HopfieldB();
 
         Scanner scanner = new Scanner(System.in);
 

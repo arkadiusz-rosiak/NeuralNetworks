@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Vector
 {
@@ -106,5 +107,16 @@ public class Vector
         double[] vec = new double[length];
         vec[length-1] = 1;
         return vec;
+    }
+
+    public static double[] randomZeroOneVector(int size){
+        double[] vector = new double[size];
+
+        for(int i = 0; i < vector.length; i++)
+        {
+            vector[i] = ThreadLocalRandom.current().nextInt(0, 2);
+        }
+
+        return vector;
     }
 }
