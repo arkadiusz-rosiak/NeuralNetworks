@@ -1,4 +1,4 @@
-package Cw6_Autoencoder;
+package Cw5a_Autoencoder;
 
 public class Autoencoder
 {
@@ -89,11 +89,11 @@ public class Autoencoder
             {
                 if(xpp[a][i] == 1)
                 {
-                    System.out.print('X');
+                    System.out.print('■');
                 }
                 else
                 {
-                    System.out.print(' ');
+                    System.out.print('□');
                 }
 
                 if(i % 5 == 4)
