@@ -119,4 +119,28 @@ public class Vector
 
         return vector;
     }
+
+    public static int[] randomVectorOfDifferentInts(int length){
+        int[] vec = new int[length];
+
+
+        for(int i = 0; i < length; i++)
+        {
+            vec[i] = -1;
+        }
+
+        for(int i = 0; i < length; i++)
+        {
+
+            int random = ThreadLocalRandom.current().nextInt(length);
+
+            while(vec[random] != -1){
+                random = ThreadLocalRandom.current().nextInt(length);
+            }
+
+            vec[random] = i;
+        }
+
+        return vec;
+    }
 }
