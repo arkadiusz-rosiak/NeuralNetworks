@@ -53,10 +53,10 @@ public class TSP
                     citiesB[a][b] = 1;
                 }
                 else if(a < b){
-                    citiesB[a][b] = pow(a+1.0, 3) + pow(b+1.0, 3)
-                            - pow(a+1.0, 2)*(b+1) - pow(b+1.0, 2)*(a+1)
-                            + 4 * pow(a+1.0, 2) - pow(b+1.0, 2)
-                            + 4 * (a+1) + 4 * (b+1) +1;
+                    citiesB[a][b] = pow(a, 3) + pow(b, 3)
+                            - pow(a, 2)*(b+1) - pow(b, 2)*(a+1)
+                            + 4 * pow(a, 2) - pow(b, 2)
+                            + 4*a+ 4*b;
                 }
                 else if(a > b){
                     citiesB[a][b] = citiesB[b][a];
