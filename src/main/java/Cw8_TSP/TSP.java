@@ -10,9 +10,9 @@ import static java.lang.Math.pow;
 public class TSP
 {
 
-    private static final double T0 = 10;
+    private static final double T0 = 1;
     private static final int L = 3;
-    private static final int M = 10;
+    private static final int M = 200;
     private final double[][] citiesA = new double[10][10];
     private final double[][] citiesB = new double[10][10];
 
